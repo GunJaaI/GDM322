@@ -26,8 +26,7 @@ public class LoginManagerScript : MonoBehaviour
         NetworkManager.Singleton.OnServerStarted += HandleServerStarted;
         NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
         NetworkManager.Singleton.OnClientDisconnectCallback += HandleClientDisconnect;
-        loginPanel.SetActive(true);
-        leaveButton.SetActive(false);
+        SetUIVisible(false);
     }
 
     private void OnDestroy() {

@@ -4,6 +4,7 @@ using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using Unity.Collections;
+using JetBrains.Annotations;
 
 public class PlayerMovement : NetworkBehaviour
 {
@@ -83,10 +84,28 @@ public class PlayerMovement : NetworkBehaviour
                 isOfflineStatus.Value = !isOfflineStatus.Value;
             }
             posX.Value = (int)System.Math.Ceiling(transform.position.x);
+            if (Input.GetKeyDown(KeyCode.X)) {
+                TestServerRpc("Hello ", new ServerRpcParams());
+            }
+            if (Input.GetKeyDown(KeyCode.C)) {
+                ClientRpcSendParams clientRpcSendParams = new ClientRpcSendParams { TargetClientIds = new List<ulong> { 1 } }; 
+                ClientRpcParams clientRpcParams = new ClientRpcParams { Send = clientRpcSendParams }; 
+                TestClientRpc("Hello ", clientRpcParams);
+            }
         }
 
         UpdatePlayerInfo();
         ChangeEyeColor();
+    }
+
+    [ServerRpc]
+    private void TestServerRpc(string msg, ServerRpcParams serverRpcParams) {
+        Debug.Log("Test server RPC form Client " + OwnerClientId);
+    }
+
+    [ClientRpc]
+    private void TestClientRpc(string msg, ClientRpcParams clientRpcParams) {
+        Debug.Log("Test client RPC form Server " + msg);
     }
 
     void UpdatePlayerInfo() {
@@ -124,10 +143,22 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
-    public override void OnDestroy() {
-        if (nameLabel != null)
-            Destroy(nameLabel.gameObject);
+    // public override void OnDestroy() {
+    //     if (nameLabel != null)
+    //         Destroy(nameLabel.gameObject);
 
-        base.OnDestroy();
+    //     base.OnDestroy();
+    // }
+
+    private void OnEnable() {
+        if (nameLabel != null) {
+            nameLabel.enabled = true;
+        }
+    }
+
+    private void OnDisable() {
+        if (nameLabel != null) {
+            nameLabel.enabled = false;
+        }
     }
 }

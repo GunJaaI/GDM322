@@ -57,7 +57,7 @@ public class HPPlayerScript : NetworkBehaviour
             {
                 hpP2.Value--;
             }
-            //gameObject.GetComponent<PlayerSpawnerScript>().Respawn();
+            gameObject.GetComponent<PlayerSpawnerScript>().Respawn();
         }
     }
 }
