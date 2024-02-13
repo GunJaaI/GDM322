@@ -19,10 +19,10 @@ public class PlayerMovement : NetworkBehaviour
     private NetworkVariable<bool> isOfflineStatus = new NetworkVariable<bool>( false, 
                                                                     NetworkVariableReadPermission.Everyone, 
                                                                     NetworkVariableWritePermission.Owner);
-    private NetworkVariable<NetworkString> playerNameA = new NetworkVariable<NetworkString>(new NetworkString { info = "Player" }, 
+    public NetworkVariable<NetworkString> playerNameA = new NetworkVariable<NetworkString>(new NetworkString { info = "Player" }, 
                                                              NetworkVariableReadPermission.Everyone, 
                                                              NetworkVariableWritePermission.Owner);
-    private NetworkVariable<NetworkString> playerNameB = new NetworkVariable<NetworkString>(new NetworkString { info = "Player" }, 
+    public NetworkVariable<NetworkString> playerNameB = new NetworkVariable<NetworkString>(new NetworkString { info = "Player" }, 
                                                              NetworkVariableReadPermission.Everyone, 
                                                              NetworkVariableWritePermission.Owner);
     public struct NetworkString : INetworkSerializable {

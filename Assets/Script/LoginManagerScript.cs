@@ -17,6 +17,7 @@ public class LoginManagerScript : MonoBehaviour
 
     public GameObject loginPanel;
     public GameObject leaveButton;
+    public GameObject scorePanel;
 
     public List<GameObject> spawnPoint;
     public List<uint> AlternativePlayerPrefabs;
@@ -48,8 +49,7 @@ public class LoginManagerScript : MonoBehaviour
         Debug.Log("Connected clientID = " + clientId);
 
         if (clientId == NetworkManager.Singleton.LocalClientId) {
-            loginPanel.SetActive(false);
-            leaveButton.SetActive(true);
+            SetUIVisible(true);
         }
     }
 
@@ -70,8 +70,19 @@ public class LoginManagerScript : MonoBehaviour
         } else if (NetworkManager.Singleton.IsClient) {
             NetworkManager.Singleton.Shutdown();
         }
-        loginPanel.SetActive(true);
-        leaveButton.SetActive(false);
+        SetUIVisible(false);
+    }
+
+    public void SetUIVisible(bool isUserLogin) {
+        if (isUserLogin) {
+            loginPanel.SetActive(false);
+            leaveButton.SetActive(true);
+            scorePanel.SetActive(true);
+        } else {
+            loginPanel.SetActive(true);
+            leaveButton.SetActive(false);
+            scorePanel.SetActive(false);
+        }
     }
 
     [Command("set-approve")]
