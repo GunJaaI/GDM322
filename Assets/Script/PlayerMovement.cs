@@ -82,6 +82,7 @@ public class PlayerMovement : NetworkBehaviour
         if (IsOwner) {
             if (Input.GetKeyDown(KeyCode.R)) {
                 isOfflineStatus.Value = !isOfflineStatus.Value;
+
             }
             posX.Value = (int)System.Math.Ceiling(transform.position.x);
             if (Input.GetKeyDown(KeyCode.X)) {
@@ -118,11 +119,17 @@ public class PlayerMovement : NetworkBehaviour
 
     void ChangeEyeColor() {
         if (IsOwnedByServer && OwnerClientId == 0) {
-            if (isOfflineStatus.Value) { gameObject.GetComponentInChildren<Renderer>().material = loginManager.statusObjectColor[1]; }
-            else { statusObject.GetComponent<Renderer>().material = loginManager.statusObjectColor[0]; }
+            if (isOfflineStatus.Value) { 
+                gameObject.GetComponentInChildren<Renderer>().material = loginManager.statusObjectColor[1]; 
+            } else { 
+                statusObject.GetComponent<Renderer>().material = loginManager.statusObjectColor[0]; 
+            }
         } else {
-            if (isOfflineStatus.Value) { gameObject.GetComponentInChildren<Renderer>().material = loginManager.statusObjectColor[1]; }
-            else { statusObject.GetComponent<Renderer>().material = loginManager.statusObjectColor[0]; }
+            if (isOfflineStatus.Value) { 
+                gameObject.GetComponentInChildren<Renderer>().material = loginManager.statusObjectColor[1]; 
+            } else { 
+                statusObject.GetComponent<Renderer>().material = loginManager.statusObjectColor[0]; 
+            }
         }
     }
 
