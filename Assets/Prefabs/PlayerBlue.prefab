@@ -123,9 +123,10 @@ GameObject:
   - component: {fileID: -5134155353413426599}
   - component: {fileID: 8098358468439413343}
   - component: {fileID: 2549098813678667126}
+  - component: {fileID: 2027225996809859200}
   m_Layer: 0
   m_Name: PlayerBlue
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -284,6 +285,19 @@ MonoBehaviour:
   - {fileID: 6466554821050168078}
   - {fileID: 3715375883916377800}
   renderers: []
+--- !u!114 &2027225996809859200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7604845098377785404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d318d38fc88ff164c8760d3a047f3c7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bombPrefab: {fileID: 5287127811118541531, guid: e18c7f1bdde462943861530ff497ee71, type: 3}
 --- !u!1 &8460330122676913149
 GameObject:
   m_ObjectHideFlags: 0

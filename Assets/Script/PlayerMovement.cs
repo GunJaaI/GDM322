@@ -80,7 +80,7 @@ public class PlayerMovement : NetworkBehaviour
         nameLabel.transform.position = nameLabelPos;
 
         if (IsOwner) {
-            if (Input.GetKeyDown(KeyCode.F)) {
+            if (Input.GetKeyDown(KeyCode.R)) {
                 isOfflineStatus.Value = !isOfflineStatus.Value;
             }
             posX.Value = (int)System.Math.Ceiling(transform.position.x);

@@ -286,6 +286,8 @@ public class LoginManagerScript : MonoBehaviour
       return 0;
     } else if (skinSelector.GetComponent<TMP_Dropdown>().value == 1) {
       return 1;
+    } else if (skinSelector.GetComponent<TMP_Dropdown>().value == 2) {
+      return 2;
     } 
     
     // else if (skinSelector.GetComponent<TMP_Dropdown>().value == 2) {

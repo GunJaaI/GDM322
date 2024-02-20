@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MainCanvas
   - DeathZone
+  - Bomb
   layers:
   - Default
   - TransparentFX

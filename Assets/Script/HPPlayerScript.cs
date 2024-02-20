@@ -49,15 +49,21 @@ public class HPPlayerScript : NetworkBehaviour
         // Script -HP
         if (collision.gameObject.tag == "DeathZone")
         {
-            if (IsOwnedByServer)
-            {
+            if (IsOwnedByServer) {
                 hpP1.Value--;
-            }
-            else
-            {
+            } else {
                 hpP2.Value--;
             }
             gameObject.GetComponent<PlayerSpawnerScript>().Respawn();
+        }
+
+        if (collision.gameObject.tag == "Bomb")
+        {
+            if (IsOwnedByServer) {
+                hpP1.Value--;
+            } else {
+                hpP2.Value--;
+            }
         }
     }
 }
