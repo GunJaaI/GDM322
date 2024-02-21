@@ -5,19 +5,27 @@ using Unity.Netcode;
 using UnityEngine;
 using Unity.Collections;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 
 public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField] GameObject statusObject;
+    [SerializeField] GameObject statusWand;
     public float speed = 5.0f;
     public float rotateSpeed = 10.0f;
     Rigidbody rb;
     private LoginManagerScript loginManager;
     public TMP_Text namePrefab;
     private TMP_Text nameLabel;
+    private bool timerIsRunning = false;
+
     private NetworkVariable<int> posX = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, 
                                                                     NetworkVariableWritePermission.Owner);
     private NetworkVariable<bool> isOfflineStatus = new NetworkVariable<bool>( false, 
+                                                                    NetworkVariableReadPermission.Everyone, 
+                                                                    NetworkVariableWritePermission.Owner);
+                                
+    private NetworkVariable<bool> isOfflineWand = new NetworkVariable<bool>( false, 
                                                                     NetworkVariableReadPermission.Everyone, 
                                                                     NetworkVariableWritePermission.Owner);
     public NetworkVariable<NetworkString> playerNameA = new NetworkVariable<NetworkString>(new NetworkString { info = "Player" }, 
@@ -43,6 +51,10 @@ public class PlayerMovement : NetworkBehaviour
         nameLabel = Instantiate(namePrefab, Vector3.zero, Quaternion.identity) as TMP_Text;
         nameLabel.transform.SetParent(canvas.transform);
 
+        // Instaniate Head Wand to not use GetComponentInChildren
+        statusWand = Instantiate(statusWand, transform.position + new Vector3(0.615f, 1.343f, 0.727f), Quaternion.identity);
+        statusWand.transform.SetParent(transform);
+
         posX.OnValueChanged += (int previousValue, int newValue) => {
             Debug.Log("Owner ID = " + OwnerClientId + ": Pos X = " + posX.Value);
         };
@@ -55,18 +67,6 @@ public class PlayerMovement : NetworkBehaviour
                 else { playerNameB.Value = name; }
             }
         }
-
-        // playerNameA.OnValueChanged += (NetworkString previousValue, NetworkString newValue) => {
-        //     Debug.Log("OwnerID = " + OwnerClientId + ": old name = " + previousValue.info + ": new name = " + newValue.info);
-        // };
-        // playerNameB.OnValueChanged += (NetworkString previousValue, NetworkString newValue) => {
-        //     Debug.Log("OwnerID = " + OwnerClientId + ": old name = " + previousValue.info + ": new name = " + newValue.info);
-        // };
-
-        // if (IsServer) {
-        //     playerNameA.Value = new NetworkString() { info = new FixedString32Bytes("Player1") };
-        //     playerNameB.Value = new NetworkString() { info = new FixedString32Bytes("Player2") };
-        // }
     }
 
     private void Start() {
@@ -84,6 +84,13 @@ public class PlayerMovement : NetworkBehaviour
                 isOfflineStatus.Value = !isOfflineStatus.Value;
 
             }
+
+            if (Input.GetKeyDown(KeyCode.Y) && !timerIsRunning) {
+                isOfflineWand.Value = !isOfflineWand.Value;
+                StartCoroutine(WaitForColorChangeBack());
+
+            }
+
             posX.Value = (int)System.Math.Ceiling(transform.position.x);
             if (Input.GetKeyDown(KeyCode.X)) {
                 TestServerRpc("Hello ", new ServerRpcParams());
@@ -97,6 +104,7 @@ public class PlayerMovement : NetworkBehaviour
 
         UpdatePlayerInfo();
         ChangeEyeColor();
+        ChangeWandColor();
     }
 
     [ServerRpc]
@@ -131,6 +139,50 @@ public class PlayerMovement : NetworkBehaviour
                 statusObject.GetComponent<Renderer>().material = loginManager.statusObjectColor[0]; 
             }
         }
+    }
+
+    void ChangeWandColor() {
+        // if (IsOwnedByServer && OwnerClientId == 0) {
+        //     if (isOfflineWand.Value) { 
+        //         gameObject.GetComponentInParent<Renderer>().material = loginManager.statusWandColor[1]; 
+        //     } else { 
+        //         statusObject.GetComponent<Renderer>().material = loginManager.statusWandColor[0]; 
+        //     }
+        // } else {
+        //     if (isOfflineWand.Value) { 
+        //         gameObject.GetComponentInParent<Renderer>().material = loginManager.statusWandColor[1]; 
+        //     } else { 
+        //         statusObject.GetComponent<Renderer>().material = loginManager.statusWandColor[0]; 
+        //     }
+        // }
+        if (IsOwnedByServer && OwnerClientId == 0) {
+            if (isOfflineWand.Value) {
+                // Use the wandObject reference here
+                statusWand.GetComponent<Renderer>().material = loginManager.statusWandColor[1];
+            } else {
+                // Use the wandObject reference here
+                statusWand.GetComponent<Renderer>().material = loginManager.statusWandColor[0];
+            }
+        } else {
+            if (isOfflineWand.Value) {
+                // Use the wandObject reference here
+                statusWand.GetComponent<Renderer>().material = loginManager.statusWandColor[1];
+            } else {
+                // Use the wandObject reference here
+                statusWand.GetComponent<Renderer>().material = loginManager.statusWandColor[0];
+            }
+        }
+    }
+
+    private IEnumerator WaitForColorChangeBack() {
+        timerIsRunning = true;
+        yield return new WaitForSeconds(0.5f);
+
+        // Change the color back after waiting for 0.5 seconds
+        isOfflineWand.Value = !isOfflineWand.Value;
+
+        // Reset the flag
+        timerIsRunning = false;
     }
 
     private void FixedUpdate() {

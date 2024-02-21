@@ -13,6 +13,7 @@ public class LoginManagerScript : MonoBehaviour
     public TMP_InputField passCodeInputField;
     public TMP_Dropdown skinSelector;
     public List<Material> statusObjectColor;
+    public List<Material> statusWandColor;
     private bool isApproveConnection = false;
 
     public GameObject loginPanel;
