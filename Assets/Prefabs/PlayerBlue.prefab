@@ -426,6 +426,7 @@ MonoBehaviour:
   speed: 5
   rotateSpeed: 7
   namePrefab: {fileID: 603351325977892307, guid: d9ec3a945da03df4ea4a6bded698a0b0, type: 3}
+  blinkPrefab: {fileID: 0}
 --- !u!114 &6466554821050168078
 MonoBehaviour:
   m_ObjectHideFlags: 0

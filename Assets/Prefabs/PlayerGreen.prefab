@@ -374,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3491978492
+  GlobalObjectIdHash: 666998363
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -426,6 +426,7 @@ MonoBehaviour:
   speed: 5
   rotateSpeed: 7
   namePrefab: {fileID: 603351325977892307, guid: d9ec3a945da03df4ea4a6bded698a0b0, type: 3}
+  blinkPrefab: {fileID: 3608367772416524435, guid: 5341346d75b2f0a42b3a1edbaf96fe1a, type: 3}
 --- !u!114 &6466554821050168078
 MonoBehaviour:
   m_ObjectHideFlags: 0
