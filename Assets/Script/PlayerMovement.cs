@@ -186,20 +186,20 @@ public class PlayerMovement : NetworkBehaviour
     }
 
     private void FixedUpdate() {
-        if (IsOwner) {
-            float translation = Input.GetAxis("Vertical") * speed ;
-            translation *= Time.deltaTime;
-            rb.MovePosition(rb.position + this.transform.forward * translation);
+        // if (IsOwner) {
+        //     float translation = Input.GetAxis("Vertical") * speed ;
+        //     translation *= Time.deltaTime;
+        //     rb.MovePosition(rb.position + this.transform.forward * translation);
 
-            float rotate = Input.GetAxis("Horizontal") * rotateSpeed ;
-            if (rotate != 0) {
-                rotate *= rotateSpeed;
-                Quaternion turn = Quaternion.Euler(0f, rotate, 0f);
-                rb.MoveRotation(rb.rotation * turn);
-            } else {
-                rb.angularVelocity = Vector3.zero;
-            }
-        }
+        //     float rotate = Input.GetAxis("Horizontal") * rotateSpeed ;
+        //     if (rotate != 0) {
+        //         rotate *= rotateSpeed;
+        //         Quaternion turn = Quaternion.Euler(0f, rotate, 0f);
+        //         rb.MoveRotation(rb.rotation * turn);
+        //     } else {
+        //         rb.angularVelocity = Vector3.zero;
+        //     }
+        // }
     }
 
     // public override void OnDestroy() {

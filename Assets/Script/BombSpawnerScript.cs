@@ -2,15 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Unity.Netcode.Components;
 
 public class BombSpawnerScript : NetworkBehaviour {
     public GameObject bombPrefab;
     private List<GameObject> spawnedBomb = new List<GameObject>();
 
-    // Update is called once per frame
+    private OwnerNetworkAnimation ownerNetworkAnimation;
+    void Start() {
+        ownerNetworkAnimation = GetComponent<OwnerNetworkAnimation>();    
+    }
+
     void Update() {
         if (!IsOwner) return;
         if (Input.GetKeyDown(KeyCode.T)) {
+            ownerNetworkAnimation.SetTrigger("PuttingDown");
             SpawnBombServerRpc();
         }
     }

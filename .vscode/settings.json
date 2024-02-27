@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "GDM322Week1.sln"
+    "dotnet.defaultSolution": "GDM322.sln"
 }
