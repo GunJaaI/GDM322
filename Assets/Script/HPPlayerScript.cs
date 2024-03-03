@@ -10,6 +10,7 @@ public class HPPlayerScript : NetworkBehaviour
     TMP_Text p1Text;
     TMP_Text p2Text;
     PlayerMovement playerMovement;
+    private OwnerNetworkAnimation ownerNetworkAnimation;
     public NetworkVariable<int> hpP1 = new NetworkVariable<int>(5, NetworkVariableReadPermission.Everyone, 
                                                                    NetworkVariableWritePermission.Owner);
 
@@ -22,6 +23,7 @@ public class HPPlayerScript : NetworkBehaviour
         p1Text = GameObject.Find("P1HPText (TMP)").GetComponent<TMP_Text>();
         p2Text = GameObject.Find("P2HPText (TMP)").GetComponent<TMP_Text>();
         playerMovement = GetComponent<PlayerMovement>();
+        ownerNetworkAnimation = GetComponent<OwnerNetworkAnimation>();
     }
 
     private void UpdatePlayerNameAndScore()
@@ -50,22 +52,32 @@ public class HPPlayerScript : NetworkBehaviour
         if (collision.gameObject.tag == "DeathZone") {
             if (IsOwnedByServer) {
                 hpP1.Value--;
+                ownerNetworkAnimation.SetTrigger("TakeDamage");
             } else {
                 hpP2.Value--;
+                ownerNetworkAnimation.SetTrigger("TakeDamage");
             }
             gameObject.GetComponent<PlayerSpawnerScript>().Respawn();
         } else if (collision.gameObject.tag == "Bomb") {
             if (IsOwnedByServer) {
                 hpP1.Value--;
+                ownerNetworkAnimation.SetTrigger("TakeDamage");
             } else {
                 hpP2.Value--;
+                ownerNetworkAnimation.SetTrigger("TakeDamage");
             }
         } else if (collision.gameObject.tag == "Blink") {
             if (IsOwnedByServer) {
                 hpP1.Value--;
+                ownerNetworkAnimation.SetTrigger("TakeDamage");
             } else {
                 hpP2.Value--;
+                ownerNetworkAnimation.SetTrigger("TakeDamage");
             }
+        }
+
+        if (hpP1.Value <= 0 || hpP2.Value <= 0) {
+            ownerNetworkAnimation.SetTrigger("Death");
         }
     }
 }

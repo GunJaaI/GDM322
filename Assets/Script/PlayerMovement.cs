@@ -7,8 +7,7 @@ using Unity.Collections;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 
-public class PlayerMovement : NetworkBehaviour
-{
+public class PlayerMovement : NetworkBehaviour {
     [SerializeField] GameObject statusObject;
     [SerializeField] GameObject statusWand;
     public float speed = 5.0f;
