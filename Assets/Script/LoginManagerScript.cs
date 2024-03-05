@@ -10,11 +10,11 @@ using Unity.Netcode.Transports.UTP;
 
 public class LoginManagerScript : MonoBehaviour {
     
-    public string ip_address = "127.0.0.1";
+    public string joinCode;
     public TMP_InputField userNameInputField;
     public TMP_InputField passCodeInputField;
 
-    public TMP_InputField ipInputField;
+    public TMP_InputField joinCodeInputField;
     UnityTransport transport;
 
     public TMP_Dropdown skinSelector;
@@ -100,15 +100,16 @@ public class LoginManagerScript : MonoBehaviour {
         return isApproveConnection;
     }
 
-    private void setIpAddress() {
-        transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
-        ip_address = ipInputField.GetComponent<TMP_InputField>().text;
-        transport.ConnectionData.Address = ip_address;
-    }
+    // private void setIpAddress() {
+    //     transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+    //     ip_address = ipInputField.GetComponent<TMP_InputField>().text;
+    //     transport.ConnectionData.Address = ip_address;
+    // }
 
-    public void Host()
-    {
-        setIpAddress();
+    public async void Host() {
+        if (RelayManagerScript.Instance.isRelayEnabled) {
+            await RelayManagerScript.Instance.CreateRelay();
+        }
         NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
         NetworkManager.Singleton.StartHost();
 
@@ -225,9 +226,11 @@ public class LoginManagerScript : MonoBehaviour {
         response.Pending = false;
     }
 
-    public void Client()
-    {
-        setIpAddress();
+    public async void Client() {
+        joinCode = joinCodeInputField.GetComponent<TMP_InputField>().text;
+        if (RelayManagerScript.Instance.isRelayEnabled && !string.IsNullOrEmpty(joinCode)) {
+            await RelayManagerScript.Instance.JoinRelay(joinCode);
+        }
         string userName = userNameInputField.GetComponent<TMP_InputField>().text;
         string passCodeID = passCodeInputField.GetComponent<TMP_InputField>().text; ////++
         int playerSkinSelected = skinSelected();
