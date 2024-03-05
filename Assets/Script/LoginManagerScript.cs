@@ -6,11 +6,17 @@ using UnityEngine;
 using QFSW.QC;
 using TMPro;
 using UnityEditor;
+using Unity.Netcode.Transports.UTP;
 
-public class LoginManagerScript : MonoBehaviour
-{
+public class LoginManagerScript : MonoBehaviour {
+    
+    public string ip_address = "127.0.0.1";
     public TMP_InputField userNameInputField;
     public TMP_InputField passCodeInputField;
+
+    public TMP_InputField ipInputField;
+    UnityTransport transport;
+
     public TMP_Dropdown skinSelector;
     public List<Material> statusObjectColor;
     public List<Material> statusWandColor;
@@ -94,8 +100,15 @@ public class LoginManagerScript : MonoBehaviour
         return isApproveConnection;
     }
 
+    private void setIpAddress() {
+        transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+        ip_address = ipInputField.GetComponent<TMP_InputField>().text;
+        transport.ConnectionData.Address = ip_address;
+    }
+
     public void Host()
     {
+        setIpAddress();
         NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
         NetworkManager.Singleton.StartHost();
 
@@ -214,6 +227,7 @@ public class LoginManagerScript : MonoBehaviour
 
     public void Client()
     {
+        setIpAddress();
         string userName = userNameInputField.GetComponent<TMP_InputField>().text;
         string passCodeID = passCodeInputField.GetComponent<TMP_InputField>().text; ////++
         int playerSkinSelected = skinSelected();
