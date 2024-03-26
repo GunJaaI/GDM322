@@ -14,6 +14,8 @@ public class LoginManagerScript : MonoBehaviour {
     public TMP_InputField userNameInputField;
     public TMP_InputField passCodeInputField;
 
+    // public string ip_address = "127.0.0.1";
+    // public TMP_InputField ipInputField;
     public TMP_InputField joinCodeInputField;
     UnityTransport transport;
 
@@ -164,43 +166,7 @@ public class LoginManagerScript : MonoBehaviour {
                 Debug.Log("PassCode not exist.");
             }
         }
-
-        // bool isUserNameApproved = false; 
-        // bool isPassCodeApproved = false;
-
-        // if (byteLength > 0)
-        // {
-        //     string clientData = System.Text.Encoding.ASCII.GetString(connectionData, 0, byteLength);
-        //     string[] allData = clientData.Split("?");
-
-        //     string clientUserNameData = allData[0];
-        //     string clientPassCodeData = allData[1];
-        //     Debug.Log("SplitData = Complete --> clientUserNameData = " + clientUserNameData);
-        //     Debug.Log("SplitData = Complete --> clientPassCodeData = " + clientPassCodeData);
-
-        //     string hostData = userNameInputField.GetComponent<TMP_InputField>().text;
-
-        //     isUserNameApproved = ApproveConnection(clientUserNameData, hostData);
-        //     isPassCodeApproved = ApproveConnectionPassCode(clientPassCodeData);
-
-        // }
-
-        // bool isApproved = false;
-        // if ((isUserNameApproved == true) && (isPassCodeApproved == true)) {
-        //     isApproved = true;
-        // } else if ((isUserNameApproved == false) && (isPassCodeApproved == false)) {
-        //     isApproved = false;
-        //     Debug.Log("Username already used and PassCode not exist.");
-        // } else if ((isUserNameApproved == false) || (isPassCodeApproved == false)) {
-        //     if (isUserNameApproved == false) {
-        //         isApproved = false;
-        //         Debug.Log("Username already used.");
-        //     } else {
-        //         isApproved = false;
-        //         Debug.Log("PassCode not exist.");
-        //     }
-        // }
-
+        
         // Your approval logic determines the following values
         response.Approved = isApproved;
         response.CreatePlayerObject = true;
@@ -231,6 +197,7 @@ public class LoginManagerScript : MonoBehaviour {
         if (RelayManagerScript.Instance.isRelayEnabled && !string.IsNullOrEmpty(joinCode)) {
             await RelayManagerScript.Instance.JoinRelay(joinCode);
         }
+
         string userName = userNameInputField.GetComponent<TMP_InputField>().text;
         string passCodeID = passCodeInputField.GetComponent<TMP_InputField>().text; ////++
         int playerSkinSelected = skinSelected();

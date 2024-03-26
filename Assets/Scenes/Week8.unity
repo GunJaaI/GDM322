@@ -123,6 +123,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &19162647
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 19162648}
+  - component: {fileID: 19162649}
+  m_Layer: 0
+  m_Name: LobbyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &19162648
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19162647}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 384.42075, y: 94.99754, z: -99.91628}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &19162649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19162647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0209dc188609f34a889cdf500cc04f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &20121378
 GameObject:
   m_ObjectHideFlags: 0
@@ -1320,12 +1364,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1180025191}
+    - target: {fileID: 2892668787881971398, guid: af7412dfa099e4ca4bc359b27432db92, type: 3}
+      propertyPath: m_text
+      value: IPAddress...
+      objectReference: {fileID: 0}
     - target: {fileID: 7959937764692298194, guid: af7412dfa099e4ca4bc359b27432db92, type: 3}
       propertyPath: m_text
       value: Kachujin
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2385031442009050289, guid: af7412dfa099e4ca4bc359b27432db92, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af7412dfa099e4ca4bc359b27432db92, type: 3}
@@ -2921,3 +2970,4 @@ SceneRoots:
   - {fileID: 113693185}
   - {fileID: 20121379}
   - {fileID: 946106959}
+  - {fileID: 19162648}
