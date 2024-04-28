@@ -14,12 +14,12 @@ public class LobbyScript : MonoBehaviour {
             string lobbyName = "My lobby";
             int maxPlayers = 4;
             CreateLobbyOptions options = new CreateLobbyOptions();
-            options.IsPrivate = false;
+            options.IsPrivate = true;
 
             Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
             HostLobby = lobby;
             StartCoroutine(HeartbeatLobbyCoroutine(HostLobby.Id, 15));
-            Debug.Log("Create Lobby : " + lobbyName + "." + lobby.MaxPlayers);
+            Debug.Log("Create Lobby : " + lobbyName + ", MaxPlayer : " + lobby.MaxPlayers + ", ID : " + lobby.Id + ", HostJoinCode : " + lobby.LobbyCode);
 
         } catch (LobbyServiceException e) {
             Debug.Log(e);
@@ -40,7 +40,7 @@ public class LobbyScript : MonoBehaviour {
     private async void JoinByLobbyCode(string lobbyCode) {
         //Cant use with PrivateLobby
         try {
-            Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode);
+            await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode);
             Debug.Log("Joined By Lobby code : " + lobbyCode);
         } catch (LobbyServiceException e) {
             Debug.Log(e);
